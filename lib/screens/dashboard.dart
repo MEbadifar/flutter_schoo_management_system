@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../module/extension.dart';
 
 class Dashboard extends StatelessWidget {
@@ -12,7 +13,7 @@ class Dashboard extends StatelessWidget {
           children: [
             'Dashboard'.toLabel(),
           ],
-        ),
+        ), 
       ),
     );
   }

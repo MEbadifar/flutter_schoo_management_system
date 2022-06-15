@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_schoo_management_system/module/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../block/user_block.dart';
+import '../data_model/user.dart';
+import 'widgets.dart';
 
 extension ContextExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   double get height => MediaQuery.of(this).size.height;
   void showForm(Widget child) =>
       Navigator.of(this).push(MaterialPageRoute(builder: (_) => child));
+  UserBlock get userBlock => read<UserBlock>();
+  User? get user => read<UserBlock>().user;
 }
 
 extension StringExtension on String {
   Widget toLabel({double? fontsize, Color? color, bool bold = false}) => Label(
-        this,
+        replaceAll("Exception:", ""),
         bold: bold,
         fontSize: fontsize,
         color: color,
