@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -5,11 +6,11 @@ import 'extension.dart';
 
 enum ButtonType { Save, Cancel, Delete, New }
 
-class MBlock<t> {
-  BehaviorSubject<t> _block = BehaviorSubject<t>();
-  Stream<t> get stream => _block.stream;
-  t get value => _block.value;
-  void setValue(t val) => _block.add(val);
+class MBloc<t> {
+  BehaviorSubject<t> _bloc = BehaviorSubject<t>();
+  Stream<t> get stream => _bloc.stream;
+  t get value => _bloc.value;
+  void setValue(t val) => _bloc.add(val);
 }
 
 class MLabel extends StatelessWidget {
@@ -186,7 +187,7 @@ class MSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MBlock<bool> _value = MBlock<bool>()..setValue(value);
+    MBloc<bool> _value = MBloc<bool>()..setValue(value);
 
     return StreamBuilder<bool>(
       stream: _value.stream,
@@ -213,6 +214,70 @@ class MSwitch extends StatelessWidget {
         }
         return Container();
       },
+    );
+  }
+}
+
+class MError extends StatelessWidget {
+  final Exception exeption;
+  const MError({
+    Key? key,
+    required this.exeption,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(25),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: exeption.toString().toLabel(color: Colors.white, bold: true),
+    );
+  }
+}
+
+class MWaiting extends StatelessWidget {
+  const MWaiting({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CupertinoActivityIndicator().center;
+  }
+}
+
+class MSideBarItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
+  final int value;
+  final bool selected;
+
+  const MSideBarItem({
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.onTap,
+    this.value = 0,
+    this.selected = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      selected: selected,
+      selectedTileColor: Colors.grey.shade200,
+      title: title.toLabel(color: Colors.grey.shade500, fontsize: 13),
+      leading: Icon(icon, size: 15, color: Colors.grey.shade500),
+      onTap: onTap,
+      trailing: value > 0
+          ? CircleAvatar(
+              backgroundColor: Colors.red.shade500,
+              radius: 10,
+              child: value.toString().toLabel(fontsize: 10))
+          : null,
     );
   }
 }

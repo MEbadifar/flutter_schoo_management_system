@@ -8,7 +8,7 @@ import '../module/widgets.dart';
 
 TextEditingController _mobile = TextEditingController();
 TextEditingController _pass = TextEditingController();
-bool _remember = false;
+bool _remember = false;  
 
 class Login extends StatelessWidget {
   final BlocState state;
@@ -51,7 +51,7 @@ class Login extends StatelessWidget {
                       Row(
                         children: [
                           MSwitch(
-                              value: false,
+                              value: _remember,
                               hint: 'Remmember me',
                               onChanged: (val) => _remember = val),
                           'Remmember me!'.toLabel(),
@@ -71,14 +71,12 @@ class Login extends StatelessWidget {
                               color: Colors.blue,
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  context.userBlock.authenticate(
+                                  context.userBloc.authenticate(
                                       _mobile.text, _pass.text, _remember);
                                 }
                               }).margin9,
-                          state is Loading
-                              ? const CupertinoActivityIndicator()
-                              : Container(),
-                          Spacer(),
+                          state is Loading ? const MWaiting() : Container(),
+                          const Spacer(),
                           MTextButton(
                               title: 'forgot my password !', onPressed: () {})
                         ],
@@ -87,18 +85,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 state is Failed
-                    ? Container(
-                        margin: EdgeInsets.all(25),
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: (state as Failed)
-                            .exception
-                            .toString()
-                            .toLabel(color: Colors.white, bold: true),
-                      )
+                    ? MError(exeption: (state as Failed).exception)
                     : Container()
               ],
             ),

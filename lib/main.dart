@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/bloc_state.dart';
 import 'bloc/user_bloc.dart';
-import 'screens/dashboard.dart';
+import 'screens/Dashboard/dashboard.dart';
 import 'screens/login.dart';
 
 void main() => runApp(MultiBlocProvider(
@@ -23,12 +23,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocBuilder<UserBloc, BlocState>(
-        builder: (context, state) {
-          if (state is Authenticated) return const Dashboard();
-          return Login(state: state);
-        },
-      ),
+      home: Dashboard(),
+      // home: BlocBuilder<UserBloc, BlocState>(
+      // builder: (context, state) {
+      //   if (state is Authenticated) return const Dashboard();
+      //   return Login(state: state);
+      // },
+      // ),
     );
   }
 }
