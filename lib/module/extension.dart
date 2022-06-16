@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../block/user_block.dart';
+import '../bloc/user_bloc.dart';
+
 import '../data_model/user.dart';
 import 'widgets.dart';
 
@@ -10,12 +11,12 @@ extension ContextExtension on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   void showForm(Widget child) =>
       Navigator.of(this).push(MaterialPageRoute(builder: (_) => child));
-  UserBlock get userBlock => read<UserBlock>();
-  User? get user => read<UserBlock>().user;
+  UserBloc get userBlock => read<UserBloc>();
+  User? get user => read<UserBloc>().user;
 }
 
 extension StringExtension on String {
-  Widget toLabel({double? fontsize, Color? color, bool bold = false}) => Label(
+  Widget toLabel({double? fontsize, Color? color, bool bold = false}) => MLabel(
         replaceAll("Exception:", ""),
         bold: bold,
         fontSize: fontsize,

@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'block/block_state.dart';
-import 'block/user_block.dart';
+import 'bloc/bloc_state.dart';
+import 'bloc/user_bloc.dart';
 import 'screens/dashboard.dart';
 import 'screens/login.dart';
 
-
 void main() => runApp(MultiBlocProvider(
-    providers: [BlocProvider<UserBlock>(create: (_) => UserBlock())],
+    providers: [BlocProvider<UserBloc>(create: (_) => UserBloc())],
     child: const MyApp()));
 
 class MyApp extends StatelessWidget {
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocBuilder<UserBlock, BlockState>(
+      home: BlocBuilder<UserBloc, BlocState>(
         builder: (context, state) {
           if (state is Authenticated) return const Dashboard();
           return Login(state: state);

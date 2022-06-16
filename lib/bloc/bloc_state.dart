@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../data_model/user.dart';
 
 @immutable
-abstract class BlockState {}
+abstract class BlocState {}
 
-class Initial extends BlockState {}
+class Initial extends BlocState {}
 
-class Loading extends BlockState {}
+class Loading extends BlocState {}
 
-class Failed extends BlockState {
+class Failed extends BlocState {
   final Exception exception;
   Failed(this.exception);
 }
 
-class Authenticated extends BlockState {
+class Authenticated extends BlocState {
   final User user;
   Authenticated(this.user);
 }

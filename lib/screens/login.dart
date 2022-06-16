@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../block/block_state.dart';
-import '../block/user_block.dart';
+import '../bloc/bloc_state.dart';
 import '../module/extension.dart';
 import '../module/widgets.dart';
 
 TextEditingController _mobile = TextEditingController();
 TextEditingController _pass = TextEditingController();
+bool _remember = false;
 
 class Login extends StatelessWidget {
-  final BlockState state;
+  final BlocState state;
   const Login({
     required this.state,
     Key? key,
@@ -20,7 +20,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
     return Scaffold(
       // appBar: AppBar(),
       body: SafeArea(
@@ -37,9 +36,9 @@ class Login extends StatelessWidget {
                 ),
                 'Welcome to school Test'
                     .toLabel(bold: true, color: Colors.grey, fontsize: 22),
-                Edit(hint: 'username', notempty: true, controller: _mobile)
+                MEdit(hint: 'username', notempty: true, controller: _mobile)
                     .margin9,
-                Edit(
+                MEdit(
                         password: true,
                         hint: 'password',
                         notempty: true,
@@ -47,33 +46,43 @@ class Login extends StatelessWidget {
                     .margin9,
                 AbsorbPointer(
                   absorbing: state is Loading,
-                  child: Row(
-                    // mainAxisSize: MainAxisSize.min,
+                  child: Column(
                     children: [
-                      Button(
-                        title: 'Register',
-                        onTap: () {},
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 15,
-                        ),
-                        color: Colors.green,
-                      ).margin9,
-                      state is Loading
-                          ? const CupertinoActivityIndicator()
-                          : Container(),
-                      Button(
-                          title: 'Login',
-                          icon: const Icon(
-                            Icons.vpn_key,
-                            size: 15,
-                          ),
-                          color: Colors.blue,
-                          onTap: () {
-                            if (_formKey.currentState!.validate())
-                              context.userBlock
-                                  .authenticate(_mobile.text, _pass.text);
-                          }).margin9,
+                      Row(
+                        children: [
+                          MSwitch(
+                              value: false,
+                              hint: 'Remmember me',
+                              onChanged: (val) => _remember = val),
+                          'Remmember me!'.toLabel(),
+                          Spacer(),
+                          MTextButton(title: 'Regester', onPressed: () {})
+                        ],
+                      ),
+                      Row(
+                        // mainAxisSize: MainAxisSize.min,
+                        children: [
+                          MButton(
+                              title: 'Login',
+                              icon: const Icon(
+                                Icons.vpn_key,
+                                size: 15,
+                              ),
+                              color: Colors.blue,
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  context.userBlock.authenticate(
+                                      _mobile.text, _pass.text, _remember);
+                                }
+                              }).margin9,
+                          state is Loading
+                              ? const CupertinoActivityIndicator()
+                              : Container(),
+                          Spacer(),
+                          MTextButton(
+                              title: 'forgot my password !', onPressed: () {})
+                        ],
+                      ),
                     ],
                   ),
                 ),

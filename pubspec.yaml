@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   rxdart: ^0.27.4
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_lints: ^2.0.0

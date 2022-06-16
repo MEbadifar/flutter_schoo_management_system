@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_schoo_management_system/module/widgets.dart';
 
 import '../module/extension.dart';
 
@@ -10,10 +11,16 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            'Dashboard'.toLabel(),
+            'Hello ${context.user!.family}'.toLabel(),
+            MButton(
+              onTap: () => context.userBlock.signOut(),
+              type: ButtonType.Cancel,
+              title: 'SignOut',
+            )
           ],
-        ), 
+        ).center,
       ),
     );
   }
