@@ -11,6 +11,7 @@ class MBloc<t> {
   Stream<t> get stream => _bloc.stream;
   t get value => _bloc.value;
   void setValue(t val) => _bloc.add(val);
+  
 }
 
 class MLabel extends StatelessWidget {
