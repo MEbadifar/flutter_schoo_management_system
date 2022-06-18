@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'Theme.dart';
 import 'extension.dart';
 
 enum ButtonType { Save, Cancel, Delete, New }
@@ -11,7 +13,6 @@ class MBloc<t> {
   Stream<t> get stream => _bloc.stream;
   t get value => _bloc.value;
   void setValue(t val) => _bloc.add(val);
-  
 }
 
 class MLabel extends StatelessWidget {
@@ -269,7 +270,7 @@ class MSideBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       selected: selected,
-      selectedTileColor: Colors.grey.shade200,
+      selectedTileColor: context.bottomAppBarColor,
       title: title.toLabel(color: Colors.grey.shade500, fontsize: 13),
       leading: Icon(icon, size: 15, color: Colors.grey.shade500),
       onTap: onTap,
@@ -279,6 +280,52 @@ class MSideBarItem extends StatelessWidget {
               radius: 10,
               child: value.toString().toLabel(fontsize: 10))
           : null,
+    );
+  }
+}
+
+class MDarkLightSwitch extends StatelessWidget {
+  const MDarkLightSwitch({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.themeBloc
+          .setTheme(context.isDark ? AppTheme.Light : AppTheme.Dark),
+      child: Container(
+        width: 40,
+        height: 25,
+        child: Stack(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+              height: 10,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.blueAccent.shade100,
+              ),
+            ),
+            context.isDark
+                ? Container()
+                : Align(
+                    alignment: Alignment.centerRight,
+                    child: FaIcon(
+                      FontAwesomeIcons.sun,
+                      color: Colors.yellow.shade700,
+                    ),
+                  ),
+            context.isDark
+                ? Align(
+                    alignment: Alignment.centerLeft,
+                    child: FaIcon(
+                      FontAwesomeIcons.moon,
+                      color: Colors.blue.shade600,
+                    ),
+                  )
+                : Container()
+          ],
+        ),
+      ),
     );
   }
 }

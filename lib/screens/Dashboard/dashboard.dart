@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_schoo_management_system/module/Theme.dart';
 import 'package:flutter_schoo_management_system/module/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../module/extension.dart';
 import '../Teachers/teachers.dart';
@@ -52,10 +54,17 @@ class DashboardContent extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 300,
-                child: const MEdit(hint: 'search...'),
-              ).padding9,
+              //! Search box
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 300,
+                    child: const MEdit(hint: 'search...'),
+                  ).padding9,
+                  const MDarkLightSwitch(),
+                ],
+              ),
               const SizedBox(
                 height: 35,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_schoo_management_system/bloc/ThemeBloc.dart';
 import 'package:provider/provider.dart';
 
 import '../bloc/user_bloc.dart';
@@ -19,6 +20,10 @@ extension ContextExtension on BuildContext {
       Navigator.of(this).push(MaterialPageRoute(builder: (_) => child));
   UserBloc get userBloc => read<UserBloc>();
   User? get user => read<UserBloc>().user;
+  bool get isDark => Theme.of(this).brightness == Brightness.dark;
+  ThemeBloc get themeBloc => read<ThemeBloc>();
+  Color get bottomAppBarColor => Theme.of(this).bottomAppBarColor;
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
 
 extension StringExtension on String {
