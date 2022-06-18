@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_schoo_management_system/bloc/ThemeBloc.dart';
 import 'package:provider/provider.dart';
 
+import '../bloc/ThemeBloc.dart';
 import '../bloc/user_bloc.dart';
-
 import '../data_model/user.dart';
 import 'widgets.dart';
-
+ 
 extension ContextExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   double widthResponse(double perc, double min, double max) =>

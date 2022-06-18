@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_schoo_management_system/module/Theme.dart';
-import 'package:flutter_schoo_management_system/module/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../module/extension.dart';
+import '../../module/widgets.dart';
 import '../Teachers/teachers.dart';
-import './SideBar.dart';
+import 'SideBar.dart';
 import 'UserInfo.dart';
 
 MBloc<int> _menu = MBloc<int>()..setValue(1);

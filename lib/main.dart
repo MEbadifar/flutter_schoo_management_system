@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_schoo_management_system/bloc/ThemeBloc.dart';
-import 'package:flutter_schoo_management_system/module/Theme.dart';
+import 'package:url_strategy/url_strategy.dart';
 
+import 'bloc/ThemeBloc.dart';
 import 'bloc/bloc_state.dart';
 import 'bloc/user_bloc.dart';
+import 'module/Theme.dart';
 import 'screens/Dashboard/dashboard.dart';
-import 'screens/login.dart';
 
-void main() => runApp(MultiBlocProvider(providers: [
+void main() {
+  setPathUrlStrategy();
+  runApp(
+    MultiBlocProvider(providers: [
       BlocProvider<ThemeBloc>(create: (_) => ThemeBloc()),
       BlocProvider<UserBloc>(create: (_) => UserBloc())
-    ], child: const MyApp()));
+    ], child: const MyApp()),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
